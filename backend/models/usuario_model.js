@@ -31,7 +31,7 @@ const UsuarioModel = {
       if (err) {
         return callback(err);
       }
-      return callback(null, rows[0]);
+      return callback(null, rows);
     });
   },
 
