@@ -1,12 +1,11 @@
-// Ejemplo de operaciones CRUD en un modelo de usuario
 
-const db = require('../config/database'); // Importa la configuración de la base de datos
+import {connection} from '../config.js';
 
 const ModeloModel = {
-  // Create (Crear) - Crear un nuevo usuario
-  createBus: (nombre,callback) => {
+  // Create (Crear) - Crear un nuevo modelo
+  createModelo: (nombre,callback) => {
     const sql = 'INSERT INTO modelo (nombre) VALUES (?)';
-    db.query(sql, [nombre], (err, result) => {
+    connection.query(sql, [nombre], (err, result) => {
       if (err) {
         return callback(err);
       }
@@ -14,10 +13,10 @@ const ModeloModel = {
     });
   },
 
-  // Read (Leer) - Obtener un usuario por ID
-  getBusById: (busId, callback) => {
+  // Read (Leer) - Obtener un modelo por ID
+  getModeloId: (modeloId, callback) => {
     const sql = 'SELECT * FROM modelo WHERE id_modelo = ?';
-    db.query(sql, [busId], (err, rows) => {
+    connection.query(sql, [modeloId], (err, rows) => {
       if (err) {
         return callback(err);
       }
@@ -25,21 +24,21 @@ const ModeloModel = {
     });
   },
 
-    // Read (Leer) - Obtener un usuario por ID
-    getBuses: (callback) => {
+    // Read (Leer) - Obtener un modelo por ID
+  getModelos: (callback) => {
         const sql = 'SELECT * FROM modelo';
-        db.query(sql, (err, rows) => {
+        connection.query(sql, (err, rows) => {
           if (err) {
             return callback(err);
           }
-          return callback(null, rows[0]);
+          return callback(null, rows);
         });
       },
 
   // Update (Actualizar) - Actualizar información de usuario
-  updateBus: (modeloId, callback) => {
+  updateModelo: (modeloId,nombre,callback) => {
     const sql = 'UPDATE modelo SET nombre = ? WHERE id_modelo = ?';
-    db.query(sql, [nombre,modeloId], (err, result) => {
+    connection.query(sql, [nombre,modeloId], (err, result) => {
       if (err) {
         return callback(err);
       }
@@ -48,9 +47,9 @@ const ModeloModel = {
   },
 
   // Delete (Eliminar) - Eliminar un usuario por ID
-  deleteUser: (modeloId, callback) => {
+  deleteModelo: (modeloId, callback) => {
     const sql = 'DELETE FROM modelo WHERE id_modelo = ?';
-    db.query(sql, [modeloId], (err, result) => {
+    connection.query(sql, [modeloId], (err, result) => {
       if (err) {
         return callback(err);
       }
@@ -58,7 +57,6 @@ const ModeloModel = {
     });
   },
 
-  // Otras funciones CRUD según tus necesidades
 };
 
-export default ModelModel;
+export default ModeloModel;

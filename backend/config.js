@@ -1,6 +1,6 @@
 import mysql2 from 'mysql2';
 
-const connection = mysql2.createConnection({
+export const connection = mysql2.createConnection({
     host: '127.0.0.1',
     user: 'root',
     password: '1234',
@@ -13,3 +13,4 @@ try {
 } catch (error) {
     console.error('Error al conectar a la base de datos:', error);
 }
+

@@ -1,5 +1,5 @@
 // Ejemplo de operaciones CRUD en un modelo de usuario
-
+/*
 const db = require('../config/database'); // Importa la configuración de la base de datos
 
 const ModeloModel = {
@@ -62,3 +62,4 @@ const ModeloModel = {
 };
 
 export default ModelModel;
+*/
