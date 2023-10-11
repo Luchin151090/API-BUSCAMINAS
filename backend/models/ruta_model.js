@@ -1,12 +1,11 @@
-// Ejemplo de operaciones CRUD en un modelo de usuario
-/*
-const db = require('../config/database'); // Importa la configuración de la base de datos
 
-const ModeloModel = {
-  // Create (Crear) - Crear un nuevo usuario
-  createBus: (nombre,callback) => {
+import {connection} from '../config.js'
+
+const RutaModel = {
+  // Create (Crear) - Crear un nueva ruta
+  createRuta: (origen,destino,distancia_km,tiempo_minutos,callback) => {
     const sql = 'INSERT INTO ruta (origen,destino,distancia_km,tiempo_minutos) VALUES (?, ?, ?, ?)';
-    db.query(sql, [nombre], (err, result) => {
+    connection.query(sql, [origen,destino,distancia_km,tiempo_minutos], (err, result) => {
       if (err) {
         return callback(err);
       }
@@ -14,10 +13,10 @@ const ModeloModel = {
     });
   },
 
-  // Read (Leer) - Obtener un usuario por ID
-  getBusById: (busId, callback) => {
-    const sql = 'SELECT * FROM modelo WHERE id_modelo = ?';
-    db.query(sql, [busId], (err, rows) => {
+  // Read (Leer) - Obtener un ruta por ID
+  getRutaId: (rutaId, callback) => {
+    const sql = 'SELECT * FROM ruta WHERE id_ruta = ?';
+    connection.query(sql, [rutaId], (err, rows) => {
       if (err) {
         return callback(err);
       }
@@ -25,21 +24,21 @@ const ModeloModel = {
     });
   },
 
-    // Read (Leer) - Obtener un usuario por ID
-    getBuses: (callback) => {
-        const sql = 'SELECT * FROM modelo';
-        db.query(sql, (err, rows) => {
+    // Read (Leer) - Obtener un ruta por ID
+  getRutas: (callback) => {
+        const sql = 'SELECT * FROM ruta';
+        connection.query(sql, (err, rows) => {
           if (err) {
             return callback(err);
           }
           return callback(null, rows[0]);
         });
-      },
+  },
 
-  // Update (Actualizar) - Actualizar información de usuario
-  updateBus: (modeloId, callback) => {
-    const sql = 'UPDATE modelo SET nombre = ? WHERE id_modelo = ?';
-    db.query(sql, [nombre,modeloId], (err, result) => {
+  // Update (Actualizar) - Actualizar información de ruta
+  updateRuta: (rutaId, callback) => {
+    const sql = 'UPDATE ruta SET origen = ?, destino = ?, distancia_km = ?, tiempo_minutos = ? WHERE id_ruta = ?';
+    connection.query(sql, [origen,destino,distancia_km,tiempo_minutos,rutaId], (err, result) => {
       if (err) {
         return callback(err);
       }
@@ -47,10 +46,10 @@ const ModeloModel = {
     });
   },
 
-  // Delete (Eliminar) - Eliminar un usuario por ID
-  deleteUser: (modeloId, callback) => {
-    const sql = 'DELETE FROM modelo WHERE id_modelo = ?';
-    db.query(sql, [modeloId], (err, result) => {
+  // Delete (Eliminar) - Eliminar una ruta por ID
+  deleteRuta: (rutaId, callback) => {
+    const sql = 'DELETE FROM ruta WHERE id_ruta = ?';
+    connection.query(sql, [rutaId], (err, result) => {
       if (err) {
         return callback(err);
       }
@@ -61,5 +60,4 @@ const ModeloModel = {
   // Otras funciones CRUD según tus necesidades
 };
 
-export default ModelModel;
-*/
+export default RutaModel;

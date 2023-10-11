@@ -1,5 +1,8 @@
 import express from 'express';
 import routerModelo from './routes/modelo_route.js';
+import routerBus from './routes/bus_route.js';
+import routerRuta from './routes/ruta_route.js';
+
 import morgan from 'morgan';
 
 // Instanciamos una "app" de la función express
@@ -10,6 +13,8 @@ const port = 8003
 app.use(express.json())
 app.use(morgan('combined'))
 app.use('/api',routerModelo)
+app.use('/api',routerBus)
+app.use('/api',routerRuta)
 
 
 
