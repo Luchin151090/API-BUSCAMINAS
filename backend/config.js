@@ -5,6 +5,7 @@ export const connection = mysql2.createConnection({
     user: 'root',
     password: '1234',
     database: 'buscaminas',
+    port: '3307' //colocar puerto correspondiente v:
 });
 
 try {
