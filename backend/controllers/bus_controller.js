@@ -56,7 +56,7 @@ export const getBuses = async (req,res) => {
 
 // Controlador para actualizar bus
 export const updateBus = async (req,res) => {
-    const busId = req.params.modeloId
+    const busId = req.params.busId
     const {nombre_empresa, capacidad, anio_fabricacion,placa, ruta_id,modelo_id} = req.body
 
     try{

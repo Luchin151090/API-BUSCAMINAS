@@ -37,7 +37,7 @@ const HistorialModel = {
   },
 
   // Update (Actualizar) - Actualizar información de Historial
-  updateHistorial: (usuario_id, id_historial, callback) => {
+  updateHistorial: (id_historial, usuario_id, callback) => {
     const sql = 'UPDATE historial SET usuario_id = ? WHERE id_historial = ?';
     connection.query(sql, [usuario_id, id_historial], (err, result) => {
       if (err) {

@@ -36,7 +36,7 @@ const RutaModel = {
   },
 
   // Update (Actualizar) - Actualizar información de ruta
-  updateRuta: (rutaId, callback) => {
+  updateRuta: (rutaId,origen,destino,distancia_km,tiempo_minutos, callback) => {
     const sql = 'UPDATE ruta SET origen = ?, destino = ?, distancia_km = ?, tiempo_minutos = ? WHERE id_ruta = ?';
     connection.query(sql, [origen,destino,distancia_km,tiempo_minutos,rutaId], (err, result) => {
       if (err) {

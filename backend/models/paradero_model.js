@@ -36,7 +36,7 @@ const ParaderoModel = {
   },
 
   // Update (Actualizar) - Actualizar información de Paradero
-  updateParadero: (nombre, latitud, longitud, id_paradero, callback) => {
+  updateParadero: (id_paradero, nombre, latitud, longitud, callback) => {
     const sql = 'UPDATE paradero SET nombre = ?, latitud = ?, longitud = ? WHERE id_paradero = ?';
     connection.query(sql, [nombre, latitud, longitud, id_paradero], (err, result) => {
       if (err) {

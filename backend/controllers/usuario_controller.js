@@ -58,10 +58,10 @@ export const getUsuario = async (req,res) => {
 // Controlador para actualizar modelo
 export const updateUsuario = async (req,res) => {
     const usuarioId = req.params.usuarioId
-    const { nombres, apellidos, nickname, correo, contrasenia, dni, id_usuario, bus_id, paradero_id } = req.body
+    const { nombres, apellidos, nickname, correo, contrasenia, dni, bus_id, paradero_id } = req.body
 
     try{
-        UsuarioModel.updateUsuario(usuarioId, nombres, apellidos, nickname, correo, contrasenia, dni, id_usuario, bus_id, paradero_id, (err,result)=>{
+        UsuarioModel.updateUsuario(usuarioId, nombres, apellidos, nickname, correo, contrasenia, dni, bus_id, paradero_id, (err,result)=>{
             if(err){
                 res.status(500).json({err:'Error actualizar'})
             }
@@ -80,7 +80,7 @@ export const deleteUsuarioId = async (req,res) =>{
     const usuarioId = req.params.usuarioId
 
     try{
-        UsuarioModel.deleteUsuarioId(usuarioId,(err,result)=>{
+        UsuarioModel.deleteUsuario(usuarioId,(err,result)=>{
             if(err){
                 res.status(500).json({err:'No se puede borrar'})
             }

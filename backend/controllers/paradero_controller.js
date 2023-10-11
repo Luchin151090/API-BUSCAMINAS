@@ -80,7 +80,7 @@ export const deleteParaderoId = async (req,res) =>{
     const paraderoId = req.params.paraderoId
 
     try{
-        ParaderoModel.deleteParaderoId(paraderoId,(err,result)=>{
+        ParaderoModel.deleteParadero(paraderoId,(err,result)=>{
             if(err){
                 res.status(500).json({err:'No se puede borrar'})
             }

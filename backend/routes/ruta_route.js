@@ -6,7 +6,7 @@ const routerRuta = express.Router()
 
 routerRuta.post('/ruta',createRuta)
 routerRuta.get('/ruta/:rutaId',getRuta)
-routerRuta.get('/ruta',getRuta)
+routerRuta.get('/ruta',getRutas)
 routerRuta.put('/ruta/:rutaId',updateRuta)
 routerRuta.delete('/ruta/:rutaId',deleteRutaId)
 /* mas rutas aqui*/

@@ -80,7 +80,7 @@ export const deleteHistorialId = async (req,res) =>{
     const historialId = req.params.historialId
 
     try{
-        HistorialModel.deleteHistorialId(historialId,(err,result)=>{
+        HistorialModel.deleteHistorial(historialId,(err,result)=>{
             if(err){
                 res.status(500).json({err:'No se puede borrar'})
             }
