@@ -35,7 +35,7 @@ const ModeloModel = {
         });
       },
 
-  // Update (Actualizar) - Actualizar información de usuario
+  // Update (Actualizar) - Actualizar información de modelo
   updateModelo: (modeloId,nombre,callback) => {
     const sql = 'UPDATE modelo SET nombre = ? WHERE id_modelo = ?';
     connection.query(sql, [nombre,modeloId], (err, result) => {
@@ -46,7 +46,7 @@ const ModeloModel = {
     });
   },
 
-  // Delete (Eliminar) - Eliminar un usuario por ID
+  // Delete (Eliminar) - Eliminar un modelo por ID
   deleteModelo: (modeloId, callback) => {
     const sql = 'DELETE FROM modelo WHERE id_modelo = ?';
     connection.query(sql, [modeloId], (err, result) => {

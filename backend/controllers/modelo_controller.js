@@ -74,6 +74,7 @@ export const updateModelo = async (req,res) => {
     }
 }
 
+// Controlador para eliminar modelo
 export const deleteModeloId = async (req,res) =>{
     const modeloId = req.params.modeloId
 
