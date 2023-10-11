@@ -1,0 +1,16 @@
+INSTALAR EN LA RAIZ DEL PROYECTO ....OJO....para que no haya conflictos
+
+1 npm init -y
+2 npm install express --save
+3 npm install mysql2 --save
+4 npm install morgan >> sirve para visualizar las peticiones HTTP en el servidor - consola 
+5 npm install -g nodemon
+
+
+## NOTA 
+
+una vez isntalado ubicarse en la carpeta donde esta el INDEX.JS y ejecutar:
+
+nodemon index.js
+
+Además verificar los puertos mysql : 3306 tanto en la conexion de mysql Workbench y el config.js
