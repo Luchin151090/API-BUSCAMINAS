@@ -2,6 +2,10 @@ import express from 'express';
 import routerModelo from './routes/modelo_route.js';
 import routerBus from './routes/bus_route.js';
 import routerRuta from './routes/ruta_route.js';
+import routerUsuario from './routes/usuario_route.js';
+import routerParadero from './routes/paradero_route.js';
+import routerHistorial from './routes/historial_route.js';
+
 
 import morgan from 'morgan';
 
@@ -15,6 +19,9 @@ app.use(morgan('combined'))
 app.use('/api',routerModelo)
 app.use('/api',routerBus)
 app.use('/api',routerRuta)
+app.use('/api',routerUsuario)
+app.use('/api',routerParadero)
+app.use('/api',routerHistorial)
 
 
 
