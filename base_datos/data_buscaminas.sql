@@ -9,7 +9,7 @@ insert into paradero (nombre, latitud, longitud) values
     ("radio patrulla", "16°24'18.3S", "71°29'43.3W");
     
 
-INSERT INTO bus (nombre_empresa,placa,anio_fabricacion, capacidad, ruta_id, modelo_id)
+INSERT INTO bus (nombre_empresa,placa,anio_fabricacion,capacidad,ruta_id,modelo_id)
 VALUES
 ('15 de Agosto S.A.', 'ABC123', 2020, 30, 1, 2),
 ('24 De Diciembre S.R.L.', 'XYZ456', 2019, 35, 2, 3),
