@@ -4,17 +4,29 @@ import React, { useState } from 'react';
 import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
 
 const Login = () => {
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
+  const [nickname, setNickname] = useState('');
+  const [contrasenia, setContrasenia] = useState('');
 
   const handleLogin = () => {
-    // Aquí deberías implementar la lógica de autenticación
-    // Por ejemplo, verificar las credenciales en una base de datos o servidor.
-    if (username === 'usuario' && password === 'contraseña') {
-      alert('Inicio de sesión exitoso');
-    } else {
-      alert('Credenciales incorrectas');
-    }
+    // Realizar una solicitud POST al servidor para autenticar al usuario
+    fetch('http://127.0.0.1:8003/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ nickname, contrasenia }),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.authenticated) {
+          alert('Inicio de sesión exitoso');
+        } else {
+          alert('Credenciales incorrectas');
+        }
+      })
+      .catch((error) => {
+        console.error('Error al iniciar sesión:', error);
+      });
   };
   
 
@@ -24,15 +36,15 @@ const Login = () => {
       <TextInput
         style={styles.input}
         placeholder="Usuario"
-        value={username}
-        onChangeText={(text) => setUsername(text)}
+        value={nickname}
+        onChangeText={(text) => setNickname(text)}
       />
       <TextInput
         style={styles.input}
         placeholder="Contraseña"
         secureTextEntry
-        value={password}
-        onChangeText={(text) => setPassword(text)}
+        value={contrasenia}
+        onChangeText={(text) => setContrasenia(text)}
       />
       <TouchableOpacity style={styles.button} onPress={handleLogin}>
         <Text style={styles.buttonText}>Iniciar Sesión</Text>
