@@ -19,8 +19,9 @@ const Buses = () => {
     // Realiza una solicitud GET a la API para obtener los datos de los autobuses
     axios.get('http://127.0.0.1:8003/api/bus')
       .then((response) => {
-        const data = response.data; // Obtiene los datos de la respuesta
-        setBuses(data); // Actualiza el estado con los datos
+        const data = response.data; // Obtie
+        console.log(data);
+        setBuses(data); 
       })
       .catch((error) => {
         console.log('Error al cargar los datos de la API: ', error);
