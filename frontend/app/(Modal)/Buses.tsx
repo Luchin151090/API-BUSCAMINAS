@@ -1,49 +1,50 @@
-import { View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
-import React, { forwardRef, useCallback, useMemo } from 'react';
+import { View,  Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import React, { useState,useEffect,forwardRef, useCallback, useMemo } from 'react';
 import { BottomSheetBackdrop, BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet';
 import Colors from '@/constants/Colors';
 import { Link } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
+import axios from 'axios';
 
 export type Ref = BottomSheetModal;
 
 const Buses = () => {
   const snapPoints = useMemo(() => ['38%'], []);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+  
+  const [buses, setBuses] = useState([]); // Estado para almacenar los datos de los autobuses
+
+  useEffect(() => {
+    // Realiza una solicitud GET a la API para obtener los datos de los autobuses
+    axios.get('http://127.0.0.1:8003/api/bus')
+      .then((response) => {
+        const data = response.data; // Obtie
+        console.log(data);
+        setBuses(data); 
+      })
+      .catch((error) => {
+        console.log('Error al cargar los datos de la API: ', error);
+      });
+  }, []);
+
   return (
-    <View style={styles.contentContainer}>    
-      <Link href={'/(Modal)/DetalleBus'} asChild>
-        <TouchableOpacity > 
-          <View style={styles.item}>
-            <Image style={styles.bike} source={require('@/assets/images/transcayma.png')} />
-            <Text style={{ flex: 1, fontSize: 20}}>  TransCayma</Text>
-            <Ionicons name="information-circle-outline" size={30} color={Colors.blue} />
-          </View>
-        </TouchableOpacity>
-      </Link>
-
-      <TouchableOpacity>
-        <View style={[styles.item, { marginVertical: 10 }]}>
-          <Image style={styles.bike} source={require('@/assets/images/aqpMasivo.png')} />
-          <Text style={{ flex: 1, fontSize: 20 }}>  AqpMasivo</Text>
-          <Ionicons name="information-circle-outline" size={30} color={Colors.blue} />
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity>
-        <View style={styles.item}>
-          <Image style={styles.bike} source={require('@/assets/images/c9.png')} />
-          <Text style={{ flex: 1, fontSize: 20 }}>  3 de Octubre</Text>
-          <Ionicons name="information-circle-outline" size={30} color={Colors.blue} />
-        </View>
-      </TouchableOpacity>
-
-      <TouchableOpacity>
-        <View style={[styles.item, { marginVertical: 10 }]}>
-          <Image style={styles.bike} source={require('@/assets/images/unionaqp.png')} />
-          <Text style={{ flex: 1, fontSize: 20 }}>  Unión AQP</Text>
-          <Ionicons name="information-circle-outline" size={30} color={Colors.blue} />
-        </View>
-      </TouchableOpacity>
+    <View style={styles.contentContainer}>
+      {loading ? (
+        <ActivityIndicator size="large" color={Colors.blue} />
+      ) : error ? (
+        <Text>Error al cargar los datos de la API</Text>
+      ) : (
+        buses.map((bus) => (
+          <TouchableOpacity key={bus.id}>
+            <View style={styles.item}>
+              <Image style={styles.bike} source={{ uri: bus.imagen }} />
+              <Text style={{ flex: 1, fontSize: 20 }}>{bus.nombre}</Text>
+              <Ionicons name="information-circle-outline" size={30} color={Colors.blue} />
+            </View>
+          </TouchableOpacity>
+        ))
+      )}
     </View>
   );
 };
