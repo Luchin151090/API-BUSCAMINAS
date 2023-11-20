@@ -1,5 +1,5 @@
-import { View,  Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
-import React, { useState,useEffect,forwardRef, useCallback, useMemo } from 'react';
+import { View, Text, TouchableOpacity, StyleSheet, Image} from 'react-native';
+import React, { forwardRef, useCallback, useEffect, useMemo, useState } from 'react';
 import { BottomSheetBackdrop, BottomSheetModal, useBottomSheetModal } from '@gorhom/bottom-sheet';
 import Colors from '@/constants/Colors';
 import { Link } from 'expo-router';
@@ -10,41 +10,30 @@ export type Ref = BottomSheetModal;
 
 const Buses = () => {
   const snapPoints = useMemo(() => ['38%'], []);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
-  
-  const [buses, setBuses] = useState([]); // Estado para almacenar los datos de los autobuses
+
+  const [busname, setBusname] = useState([]);
+
+  const fetchData = () => {
+    return axios.get("http://10.0.2.2:8003/api/bus")
+    .then((response) => setBusname(response.data));
+  }
 
   useEffect(() => {
-    // Realiza una solicitud GET a la API para obtener los datos de los autobuses
-    axios.get('http://127.0.0.1:8003/api/bus')
-      .then((response) => {
-        const data = response.data; // Obtie
-        console.log(data);
-        setBuses(data); 
-      })
-      .catch((error) => {
-        console.log('Error al cargar los datos de la API: ', error);
-      });
-  }, []);
+    fetchData();
+  }, [])
 
   return (
     <View style={styles.contentContainer}>
-      {loading ? (
-        <ActivityIndicator size="large" color={Colors.blue} />
-      ) : error ? (
-        <Text>Error al cargar los datos de la API</Text>
-      ) : (
-        buses.map((bus) => (
-          <TouchableOpacity key={bus.id}>
+      {busname.map((bus, index) => (
+        <Link key={index} href={'/(Modal)/DetalleBus'} asChild>
+          <TouchableOpacity>
             <View style={styles.item}>
-              <Image style={styles.bike} source={{ uri: bus.imagen }} />
-              <Text style={{ flex: 1, fontSize: 20 }}>{bus.nombre}</Text>
+              <Text style={{ flex: 1, fontSize: 20 }}> {bus.nombre_empresa}</Text>
               <Ionicons name="information-circle-outline" size={30} color={Colors.blue} />
             </View>
           </TouchableOpacity>
-        ))
-      )}
+        </Link>
+      ))}
     </View>
   );
 };
@@ -60,7 +49,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: 10,
     backgroundColor: Colors.grey,
-    borderRadius: 20
+    borderRadius: 20,
+    marginBottom: 10,
     
   },
   bike: {

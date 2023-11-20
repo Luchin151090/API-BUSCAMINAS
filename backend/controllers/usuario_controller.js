@@ -2,10 +2,10 @@ import UsuarioModel from '../models/usuario_model.js'
 
 // Controlador para registrar un nuevo modelo
 export const createUsuario = async (req, res) => {
-    const { nombres, apellidos, nickname, correo, contrasenia, dni, bus_id, paradero_id } = req.body;
+    const { nombres, nickname, correo, contrasenia, dni} = req.body;
 
     try {
-        UsuarioModel.createUsuario(nombres, apellidos, nickname, correo, contrasenia, dni, bus_id, paradero_id, (err, result) =>{
+        UsuarioModel.createUsuario(nombres, nickname, correo, contrasenia, dni, (err, result) =>{
             if(err){
                 res.status(500).json({error: 'No se pudo registrar usuario'});
             }else{
@@ -58,10 +58,10 @@ export const getUsuario = async (req,res) => {
 // Controlador para actualizar modelo
 export const updateUsuario = async (req,res) => {
     const usuarioId = req.params.usuarioId
-    const { nombres, apellidos, nickname, correo, contrasenia, dni, bus_id, paradero_id } = req.body
+    const { nombres, nickname, correo, contrasenia, dni } = req.body
 
     try{
-        UsuarioModel.updateUsuario(usuarioId, nombres, apellidos, nickname, correo, contrasenia, dni, bus_id, paradero_id, (err,result)=>{
+        UsuarioModel.updateUsuario(usuarioId, nombres, nickname, correo, contrasenia, dni, (err,result)=>{
             if(err){
                 res.status(500).json({err:'Error actualizar'})
             }

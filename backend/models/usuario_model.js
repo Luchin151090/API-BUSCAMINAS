@@ -3,9 +3,9 @@ import {connection} from '../config.js';
 
 const UsuarioModel = {
   // Create (Crear) - Crear un nuevo usuario
-  createUsuario: (nombres, apellidos, nickname, correo, contrasenia, dni, bus_id, paradero_id, callback) => {
-    const sql = 'INSERT INTO usuario (nombres, apellidos, nickname, correo, contrasenia, dni, bus_id, paradero_id) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
-    connection.query(sql, [nombres, apellidos, nickname, correo, contrasenia, dni, bus_id, paradero_id], (err, result) => {
+  createUsuario: (nombres, nickname, correo, contrasenia, dni, callback) => {
+    const sql = 'INSERT INTO usuario (nombres, nickname, correo, contrasenia, dni) VALUES (?, ?, ?, ?, ?)';
+    connection.query(sql, [nombres, nickname, correo, contrasenia, dni], (err, result) => {
       if (err) {
         return callback(err);
       }
@@ -36,9 +36,9 @@ const UsuarioModel = {
   },
 
   // Update (Actualizar) - Actualizar información de usuario
-  updateUsuario: (id_usuario, nombres, apellidos, nickname, correo, contrasenia, dni, bus_id, paradero_id, callback) => {
-    const sql = 'UPDATE usuario SET nombres = ?, apellidos = ?, nickname = ?, correo = ?, contrasenia = ?, dni = ?, bus_id = ?, paradero_id = ? WHERE id_usuario = ?';
-    connection.query(sql, [nombres, apellidos, nickname, correo, contrasenia, dni, bus_id, paradero_id, id_usuario], (err, result) => {
+  updateUsuario: (id_usuario, nombres, nickname, correo, contrasenia, dni, bus_id, paradero_id, callback) => {
+    const sql = 'UPDATE usuario SET nombres = ?, nickname = ?, correo = ?, contrasenia = ?, dni = ? WHERE id_usuario = ?';
+    connection.query(sql, [nombres, nickname, correo, contrasenia, dni, id_usuario], (err, result) => {
       if (err) {
         return callback(err);
       }

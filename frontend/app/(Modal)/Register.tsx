@@ -1,59 +1,79 @@
 import { Ionicons } from '@expo/vector-icons';
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet } from 'react-native';
 
 const Register = () => {
-  const [fullName, setFullName] = useState('');
-  const [email, setEmail] = useState('');
-  const [username, setUsername] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [nombres, setFullName] = useState('');
+  const [correo, setEmail] = useState('');
+  const [nickname, setUsername] = useState('');
+  const [contrasenia, setPassword] = useState('');
+  const [dni, setDNI] = useState('');
+ 
 
-  const handleRegister = () => {
-    // Aquí implementarías la lógica de registro
-    // Por ejemplo, guardar los datos en una base de datos o servidor.
-    if (password === confirmPassword) {
-      alert('Registro exitoso');
-    } else {
-      alert('Las contraseñas no coinciden');
+  const handleRegister = async () => {
+    try {
+      const res = await fetch('http://10.0.2.2:8003/api/usuario', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nombres: nombres,
+          correo: correo,
+          nickname: nickname,
+          contrasenia: contrasenia,
+          dni : dni,
+        }),
+      });
+
+      if (res.ok) {
+        const data = await res.json();
+        alert("registro exitoso");
+      } else {
+        const errorData = await res.json();
+        alert(errorData.error);
+      }
+    } catch (error) {
+      console.error('Error al registrar:', error);
+      alert('Error al registrar. Por favor, inténtalo de nuevo.');
     }
   };
 
   return (
     <View style={styles.container}>
-        <Ionicons name="duplicate-outline" size={100} color={'#007BFF'} />
+      <Ionicons name="duplicate-outline" size={100} color={'#007BFF'} />
       <TextInput
         style={styles.input}
         placeholder="Nombre Completo"
-        value={fullName}
+        value={nombres}
         onChangeText={(text) => setFullName(text)}
       />
       <TextInput
         style={styles.input}
         placeholder="Correo Electrónico"
         keyboardType="email-address"
-        value={email}
+        value={correo}
         onChangeText={(text) => setEmail(text)}
       />
       <TextInput
         style={styles.input}
         placeholder="Usuario"
-        value={username}
+        value={nickname}
         onChangeText={(text) => setUsername(text)}
       />
       <TextInput
         style={styles.input}
         placeholder="Contraseña"
         secureTextEntry
-        value={password}
+        value={contrasenia}
         onChangeText={(text) => setPassword(text)}
       />
       <TextInput
         style={styles.input}
-        placeholder="Confirmar Contraseña"
+        placeholder="DNI"
         secureTextEntry
-        value={confirmPassword}
-        onChangeText={(text) => setConfirmPassword(text)}
+        value={dni}
+        onChangeText={(text) => setDNI(text)}
       />
       <TouchableOpacity style={styles.button} onPress={handleRegister}>
         <Text style={styles.buttonText}>Registrarse</Text>

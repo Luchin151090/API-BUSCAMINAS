@@ -1,47 +1,50 @@
+import React, { useState } from 'react';
+import { View, TextInput, TouchableOpacity, Text, StyleSheet, Alert } from 'react-native'; // Agrega Alert
 import { Ionicons } from '@expo/vector-icons';
 import { Link } from 'expo-router';
-import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet } from 'react-native';
+import axios from 'axios';
 
 const Login = () => {
   const [nickname, setNickname] = useState('');
   const [contrasenia, setContrasenia] = useState('');
+  const [message, setMessage] = useState('');
 
-  const handleLogin = () => {
-    // Realizar una solicitud POST al servidor para autenticar al usuario
-    fetch('http://127.0.0.1:8003/login', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ nickname, contrasenia }),
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        if (data.authenticated) {
-          alert('Inicio de sesión exitoso');
-        } else {
-          alert('Credenciales incorrectas');
-        }
-      })
-      .catch((error) => {
-        console.error('Error al iniciar sesión:', error);
+  const handleLogin = async () => {
+    try {
+      const response = await axios.post('http://10.0.2.2:8003/login', {
+        nickname,
+        contrasenia,
       });
+      
+      // Actualiza el estado del mensaje
+      setMessage(response.data.message);
+
+      // Muestra el mensaje usando Alert
+      //Alert.alert('Mensaje', response.data.message);
+
+      setTimeout(() => {
+        setMessage('');
+      }, 2000);
+      
+      console.log(response.data);
+    } catch (err) {
+      console.error(err);
+      // Manejo de errores si es necesario
+    }
   };
-  
 
   return (
     <View style={styles.container}>
-        <Ionicons name="person-outline" size={100} color={'#007BFF'} />
+      <Ionicons name="person-outline" size={100} color={'#007BFF'} />
       <TextInput
         style={styles.input}
-        placeholder="Usuario"
+        placeholder="nickname"
         value={nickname}
         onChangeText={(text) => setNickname(text)}
       />
       <TextInput
         style={styles.input}
-        placeholder="Contraseña"
+        placeholder="contrasenia"
         secureTextEntry
         value={contrasenia}
         onChangeText={(text) => setContrasenia(text)}
@@ -50,10 +53,15 @@ const Login = () => {
         <Text style={styles.buttonText}>Iniciar Sesión</Text>
       </TouchableOpacity>
       <Link href={'/(Modal)/Register'} asChild>
-            <TouchableOpacity>
-                <Text style={styles.registerText}>¿No tienes una cuenta? Regístrate</Text>
-            </TouchableOpacity>
-        </Link>
+        <TouchableOpacity>
+          <Text style={styles.registerText}>¿No tienes una cuenta? Regístrate</Text>
+        </TouchableOpacity>
+      </Link>
+
+      {/* Muestra el mensaje en la vista */}
+      {message !== '' && (
+        <Text style={styles.message}>{message}</Text>
+      )}
     </View>
   );
 };
@@ -87,6 +95,12 @@ const styles = StyleSheet.create({
   registerText: {
     color: '#007BFF',
     fontSize: 16,
+  },
+  message: {
+    marginTop: 10,
+    color: 'green', // Puedes personalizar el color del mensaje
+    fontSize: 16,
+    textAlign: 'center',
   },
 });
 
