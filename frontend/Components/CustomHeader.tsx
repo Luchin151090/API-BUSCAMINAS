@@ -11,18 +11,25 @@ import MapView from 'react-native-maps';
 const SearchBar = () => (
   <View style={styles.searchContainer}>
     <View style={styles.searchSection}>
-      <View style={styles.searchField}>
-        <Ionicons style={styles.searchIcon} name="bus-outline" size={20} color={Colors.medium} />
-        <TextInput style={styles.input} placeholder="Origen" />
-      </View>
-      <View style={styles.searchField}>
-        <Ionicons style={styles.searchIcon} name="location-outline" size={20} color={Colors.medium} />
-        <TextInput style={styles.input} placeholder="Destino" />
-      </View>
+
+        <Link href={'/(Modal)/location-search'} asChild>
+          <TouchableOpacity style={styles.button}> 
+              <Ionicons style={styles.searchIcon} name="bus-outline" size={20} color={Colors.white} />
+              <Text style={{ flex:10, color: 'white' }}>Origen</Text>
+          </TouchableOpacity>
+        </Link>
+        
+        <Link href={'/(Modal)/location-search'} asChild>
+          <TouchableOpacity style={styles.button}>
+            <Ionicons style={styles.searchIcon} name="location-outline" size={20} color={Colors.white} />
+            <Text style={{ flex:10, color: 'white' }}>Destino</Text>
+            </TouchableOpacity>
+        </Link>
+      
     </View>
     
     <View style={styles.searchButton}>
-      <TouchableOpacity style={styles.button}>
+      <TouchableOpacity style={styles.button2}>
         <Ionicons name="search-outline" size={20} color={Colors.white} />
       </TouchableOpacity>
     </View>
@@ -37,11 +44,11 @@ const CustomHeader = () => {
   };
 
   const [location, setLocation] = useState({
-    latitude: -16.409047,
-    longitude: -71.537451,
+    latitude: -16.423399904631825,
+    longitude:  -71.55657756931967,
     latitudeDelta: 0.0922,
     longitudeDelta: 0.0421,
-  })  
+  })
 
   return (
     
@@ -71,7 +78,9 @@ const CustomHeader = () => {
         <View style={{ height: 1000 }}>
           <MapView style={styles.map} region={location} />
         </View>
+        
     </SafeAreaView>
+    
   );
 };
 
@@ -90,15 +99,30 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
   },
   button: {
+    paddingLeft:34,
     backgroundColor: Colors.blue,
-    padding: 10,
-    margin: 5,
-    borderRadius: 20,
+    padding: 12,
+    margin: 1,
+    borderRadius: 15,
     alignItems: 'center',
-    width: '25%',
+    width: '48.5%',
     alignSelf: 'center',
     flexDirection: 'row',
     justifyContent: 'center',
+    
+
+  },
+  button2: {
+    backgroundColor: Colors.medium,
+    padding: 10,
+    margin: 5,
+    borderRadius: 50,
+    alignItems: 'center',
+    width: '15%',
+    alignSelf: 'center',
+    flexDirection: 'row',
+    justifyContent: 'center',
+
   },
   bike: {
     width: 30,
@@ -132,13 +156,14 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     gap: 10,
     flex: 1,
-    paddingHorizontal: 20,
+    paddingHorizontal: 40,
     alignItems: 'center',
   },
   searchField: {
     flex: 1,
-    backgroundColor: Colors.lightGrey,
-    borderRadius: 8,
+    backgroundColor: Colors.blue,
+    borderRadius: 10,
+
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -148,6 +173,7 @@ const styles = StyleSheet.create({
   },
   searchIcon: {
     paddingLeft: 10,
+    
   },
   optionButton: {
     padding: 10,
@@ -159,11 +185,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   map: {
-    flex: 0.63,
+    flex: 0.73,
     width: '100%',
     height: '100%',
   },
 });
+
 
 
 export default CustomHeader;
